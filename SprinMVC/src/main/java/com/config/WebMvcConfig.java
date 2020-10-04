@@ -37,9 +37,6 @@ public class WebMvcConfig implements WebMvcConfigurer {
             .addResourceHandler("/resources/**")
             .addResourceLocations("/resources/");
     }
-    
-    
-    
     @Bean(name = "asyncExecutor")
     public Executor asyncExecutor() {
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
