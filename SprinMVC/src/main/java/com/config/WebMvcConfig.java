@@ -13,38 +13,33 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
-
-
 @Configuration
 @EnableWebMvc
 @EnableAsync
-@ComponentScan(basePackages = {
-    "com.controller"
-})
+@ComponentScan(basePackages = { "com.controller" })
 public class WebMvcConfig implements WebMvcConfigurer {
 
-    @Bean
-    public InternalResourceViewResolver resolver() {
-        InternalResourceViewResolver resolver = new InternalResourceViewResolver();
-        resolver.setViewClass(JstlView.class);
-        resolver.setPrefix("/WEB-INF/view/");
-        resolver.setSuffix(".jsp");
-        return resolver;
-    }
+	@Bean
+	public InternalResourceViewResolver resolver() {
+		InternalResourceViewResolver resolver = new InternalResourceViewResolver();
+		resolver.setViewClass(JstlView.class);
+		resolver.setPrefix("/WEB-INF/view/");
+		resolver.setSuffix(".jsp");
+		return resolver;
+	}
 
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry
-            .addResourceHandler("/resources/**")
-            .addResourceLocations("/resources/");
-    }
-    @Bean(name = "asyncExecutor")
-    public Executor asyncExecutor() {
-        ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
-        executor.setCorePoolSize(3);
-        executor.setMaxPoolSize(3);
-        executor.setQueueCapacity(500);
-        executor.setThreadNamePrefix("AsynchThread-");
-        executor.initialize();
-        return executor;
-    }
+	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+		registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
+	}
+
+	@Bean(name = "asyncExecutor")
+	public Executor asyncExecutor() {
+		ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
+		executor.setCorePoolSize(3);
+		executor.setMaxPoolSize(3);
+		executor.setQueueCapacity(500);
+		executor.setThreadNamePrefix("AsynchThread-");
+		executor.initialize();
+		return executor;
+	}
 }
